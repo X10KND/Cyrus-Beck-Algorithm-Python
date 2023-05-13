@@ -1,7 +1,7 @@
-SHOW_DATA = False
+SHOW_CALCULATION = False
 
-def showdata(*arg):
-    if SHOW_DATA:
+def showcalc(*arg):
+    if SHOW_CALCULATION:
         for a in arg:
             print(a, end="  ")
         print("\n")
@@ -14,17 +14,17 @@ def CyrusClipping(x0, y0, x1, y1):
     if dx != 0:
         t_left = -(x0 - x_min) / (x1 - x0)
         t_right = -(x0 - x_max) / (x1 - x0)
-        showdata("Left:", t_left, "Right:", t_right)
+        showcalc("Left:", t_left, "Right:", t_right)
 
     if dy != 0:
         t_top = -(y0 - y_max) / (y1 - y0)
         t_bottom = -(y0 - y_min) / (y1 - y0)
-        showdata("Top:", t_top, "Bottom:", t_bottom)
+        showcalc("Top:", t_top, "Bottom:", t_bottom)
 
     tE = 0
     tL = 1
 
-    showdata("Dx:", dx, "Dy:", dy)
+    showcalc("Dx:", dx, "Dy:", dy)
 
 
     if dx == 0:
@@ -34,15 +34,15 @@ def CyrusClipping(x0, y0, x1, y1):
 
     elif dx < 0:
         tE = max(tE, t_right)
-        showdata("Right Edge\n", "Ni.D", dx, "PE", "tE:", tE, "tL:", tL)
+        showcalc("Right Edge\n", "Ni.D", dx, "PE", "tE:", tE, "tL:", tL)
         tL = min(tL, t_left)
-        showdata("Left Edge\n", "Ni.D", -dx, "PE", "tE:", tE, "tL:", tL)
+        showcalc("Left Edge\n", "Ni.D", -dx, "PE", "tE:", tE, "tL:", tL)
 
     elif dx > 0:
         tE = max(tE, t_left)
-        showdata("Left Edge\n", "Ni.D", -dx, "PL", "tE:", tE, "tL:", tL)
+        showcalc("Left Edge\n", "Ni.D", -dx, "PL", "tE:", tE, "tL:", tL)
         tL = min(tL, t_right)
-        showdata("Right Edge\n", "Ni.D", dx, "PL", "tE:", tE, "tL:", tL)
+        showcalc("Right Edge\n", "Ni.D", dx, "PL", "tE:", tE, "tL:", tL)
 
     if dy == 0:
         if y0 < y_min or y0 > y_max:
@@ -51,15 +51,15 @@ def CyrusClipping(x0, y0, x1, y1):
 
     elif dy < 0:
         tE = max(tE, t_top)
-        showdata("Top Edge\n", "Ni.D", dy, "PE", "tE:", tE, "tL:", tL)
+        showcalc("Top Edge\n", "Ni.D", dy, "PE", "tE:", tE, "tL:", tL)
         tL = min(tL, t_bottom)
-        showdata("Bottom Edge\n", "Ni.D", -dy, "PE", "tE:", tE, "tL:", tL)
+        showcalc("Bottom Edge\n", "Ni.D", -dy, "PE", "tE:", tE, "tL:", tL)
 
     elif dy > 0:
         tE = max(tE, t_bottom)
-        showdata("Bottom Edge\n", "Ni.D", -dy, "PL", "tE:", tE, "tL:", tL)
+        showcalc("Bottom Edge\n", "Ni.D", -dy, "PL", "tE:", tE, "tL:", tL)
         tL = min(tL, t_top)
-        showdata("Top Edge\n", "Ni.D", dy, "PL", "tE:", tE, "tL:", tL)
+        showcalc("Top Edge\n", "Ni.D", dy, "PL", "tE:", tE, "tL:", tL)
 
     if tE < tL:
         xc1 = x0 + tE * dx
